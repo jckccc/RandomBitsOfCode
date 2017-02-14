@@ -1,7 +1,7 @@
 package random;
 
 /**
- * This program will calculate generic column names of an excel spreadsxheet
+ * This program will calculate generic column names of an excel spreadsheet
  * 
  * @author Jacky
  *
@@ -24,6 +24,7 @@ public class ExcelCellFinder {
 
 	/**
 	 * Gets the cell index by counting horizontally from the left
+	 * 
 	 * @param cellNumber	the nth cell to get the index of
 	 * @return 				the index of the cell counted horizontally
 	 */
@@ -49,6 +50,7 @@ public class ExcelCellFinder {
 	
 	/**
 	 * Gets the cell index by counting vertically from the top left
+	 * 
 	 * @param cellNumber	the nth cell to get the index of
 	 * @return 				the index of the cell counted vertically
 	 */
@@ -73,29 +75,28 @@ public class ExcelCellFinder {
 	}
 
 	/**
-	 * Turns the column location into letters
+	 * Turns the column location into letters (now recursively!)
+	 * 
 	 * @param columnLocation	the nth column # that will be turned into letters
 	 * @return					the letters corresponding to the column
 	 */
-	public String numberToLetter(int columnLocation) {
+	private String numberToLetter(int columnLocation) {
+		if (columnLocation == 0) {
+			return "";
+		}
 		int rightLetter = columnLocation % 26;
 		if (rightLetter == 0) {
 			rightLetter = 26;
 		}
 		char right = (char) (rightLetter - 1 + 'A');
-
-		int leftLetter = (columnLocation - 1) / 26;
-		char left = (char) (leftLetter - 1 + 'A');
-
-		return leftLetter == 0 
-				? Character.toString(right)
-				: Character.toString(left) + Character.toString(right); 
+		return numberToLetter((columnLocation - 1) / 26) + Character.toString(right); 
 	}
 	
-	// Getters and Setters
+	// Getters and Setters //////////////////////////////////
 
 	/**
 	 * Gets the number of columns for the selected excel cells
+	 * 
 	 * @return		number of columns
 	 */
 	public int getNumColumns() {
@@ -104,6 +105,7 @@ public class ExcelCellFinder {
 
 	/**
 	 * Gets the number of rows for the selected excel cells
+	 * 
 	 * @return		number of rows
 	 */
 	public int getNumRows() {
@@ -112,6 +114,7 @@ public class ExcelCellFinder {
 
 	/**
 	 * Gets the total number of cells
+	 * 
 	 * @return		total number of cells
 	 */
 	public int getNumCells() {
